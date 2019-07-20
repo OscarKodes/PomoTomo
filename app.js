@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get("/", function(req, res){
-  res.send("Hello");
+  res.render("front");
 });
 
 
