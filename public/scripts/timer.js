@@ -8,8 +8,10 @@ let secDisplay = document.querySelector(".sec");
 let pomosDisplay = document.querySelector(".pomos-done");
 let breakOn = false;
 let pomoOn = false;
-let alarm = new Audio('/sounds/alarmDefault.ogg');
-let pomoUpSound = new Audio('/sounds/pomoUpDefault.ogg');
+let chosenAlarm = "alarmDefault";
+let chosenUpSound = "pomoUpDefault";
+let alarm = new Audio('/sounds/' + chosenAlarm + '.ogg');
+let pomoUpSound = new Audio('/sounds/' + chosenUpSound +'.ogg');
 let pomosDone = 0;
 let min, sec, countdown, skipMidBreak;
 
@@ -23,7 +25,12 @@ function timerInit() {
   pomoRoundSetup(); // sets up the min, sec, and start button
   pomosDisplay.innerText = pomosDone; // sets up the display for pomos done
 
-  // Add event listeners - - - - - - - - -
+  setUpListeners();
+}
+
+// SETUP Button Listeners --------------------------------
+function setUpListeners(){
+
   startBtn.addEventListener("click", function(){
     startBtn.classList.add("invisible");
     pauseBtn.classList.remove("invisible");
