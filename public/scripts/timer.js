@@ -1,4 +1,5 @@
-/// DECLARE SELECTORS AND VARIABLES =======================
+/*jshint esversion: 6 */
+/// DECLARE SELECTORS =======================
 let startBtn = document.querySelector(".start-btn");
 let pauseBtn = document.querySelector(".pause-btn");
 let breakBtn = document.querySelector(".break-btn");
@@ -6,14 +7,16 @@ let skipBreakBtn = document.querySelector(".skip-break-btn");
 let minDisplay = document.querySelector(".min");
 let secDisplay = document.querySelector(".sec");
 let pomosDisplay = document.querySelector(".pomos-done");
+let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
+let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
+let selectedAlarm, selectedPomoUp;
+
+/// DECLARE VARIABLES ======================
 let breakOn = false;
 let pomoOn = false;
-let chosenAlarm = "alarmDefault";
-let chosenUpSound = "pomoUpDefault";
-let alarm = new Audio('/sounds/' + chosenAlarm + '.ogg');
-let pomoUpSound = new Audio('/sounds/' + chosenUpSound +'.ogg');
 let pomosDone = 0;
-let min, sec, countdown, skipMidBreak;
+let min, sec, countdown, skipMidBreak,
+    chosenAlarm, alarm, chosenUpSound, pomoUpSound;
 
 // DECLARE FUNCTIONS ===========================================
 
@@ -25,7 +28,14 @@ function timerInit() {
   pomoRoundSetup(); // sets up the min, sec, and start button
   pomosDisplay.innerText = pomosDone; // sets up the display for pomos done
 
+  // set up all listeners for buttons
   setUpListeners();
+  // set up all listeners for radio buttons
+  setUpSoundPickListeners();
+
+  // auto click on default sounds, so sounds are defined
+  allAlarmRadios[0].click();
+  allPomoUpRadios[0].click();
 }
 
 // SETUP Button Listeners --------------------------------
@@ -59,8 +69,28 @@ function setUpListeners(){
       timesUp();
     } else {
       pomoUp();
-      pomoRoundSetup()
+      pomoRoundSetup();
     }
+  });
+}
+
+function setUpSoundPickListeners(){
+  // add listeners to radio buttons for choosing an alarm sound
+  allAlarmRadios.forEach(function(radioBtn){
+    radioBtn.addEventListener("click", function(){
+      selectedAlarm = document.querySelector(".alarmSounds input:checked");
+      chosenAlarm = selectedAlarm.value;
+      alarm = new Audio('/sounds/alarm' + chosenAlarm + '.ogg');
+    });
+  });
+
+  // add listeners to radio buttons for choosing a pomoUp sound
+  allPomoUpRadios.forEach(function(radioBtn){
+    radioBtn.addEventListener("click", function(){
+      selectedPomoUp = document.querySelector(".pomoUpSounds input:checked");
+      chosenUpSound = selectedPomoUp.value;
+      pomoUpSound = new Audio('/sounds/pomoUp' + chosenUpSound + '.ogg');
+    });
   });
 }
 
@@ -101,7 +131,7 @@ function countdownOn() {
       } else if (sec < 10) {
         secDisplay.innerText = "0" + String(sec);
       } else if (sec === 60) {
-        secDisplay.innerText = 00;
+        secDisplay.innerText = "00";
       } else {
         secDisplay.innerText = sec;
       }
@@ -117,6 +147,8 @@ function timesUp() {
   clearTimeout(countdown);
   if (!skipMidBreak) {
     alarm.play();
+  } else {
+    skipMidBreak = false;
   }
   if (pomoOn) {
     pomoOn = false;
