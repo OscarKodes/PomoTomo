@@ -11,7 +11,6 @@ const express = require("express"),
       User = require("./models/user"),
       session = require("express-session"),
       GoogleStrategy = require("passport-google-oauth20").Strategy;
-      findOrCreate = require("mongoose-findorcreate");
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -29,16 +28,36 @@ app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/pomo",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
 
 // this is middleware function that'll run on every route
 app.use(function(req, res, next){
   res.locals.currentUser = req.user;
   next();
 });
-
-
 
 mongoose.connect("mongodb://localhost:27017/pomotomo",
 {
@@ -49,6 +68,10 @@ mongoose.connect("mongodb://localhost:27017/pomotomo",
 
 
 app.get("/", function(req, res){
+  res.redirect("front");
+});
+
+app.get("/front", function(req, res){
   res.render("front");
 });
 
@@ -73,10 +96,26 @@ app.post("/register", function(req, res){
       return res.render("register");
     } else {
       passport.authenticate("local")(req, res, function(){
-        res.redirect("/");
+        res.redirect("/front");
       });
     }
   });
+});
+
+/// Google Register/Login
+app.get("/auth/google",
+  passport.authenticate("google", {scope: ["profile"]})
+);
+
+/// Google Callback url route,
+/// after google has registered/logged them in
+/// we need to log them in ourselves!
+app.get("/auth/google/pomo", passport.authenticate("google",
+{
+  successRedirect: "/front",
+  failureRedirect: "/login"
+}),
+  function(req, res) {
 });
 
 // show login form
