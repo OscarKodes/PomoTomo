@@ -88,7 +88,7 @@ app.get("/register", function(req, res){
 app.post("/register", function(req, res){
 
   User.register(
-    {email: req.body.email},
+    {username: req.body.username},
     req.body.password,
     function(err, user){
     if (err) {
@@ -135,6 +135,11 @@ app.post("/login", passport.authenticate("local",
 app.get("/logout", function(req, res){
   req.logout();
   res.redirect("/");
+});
+
+// Error Page
+app.get("*", function(req, res){
+  res.send("404 PAGE NOT FOUND");
 });
 
 
