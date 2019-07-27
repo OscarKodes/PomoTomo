@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+<%- include partials/header %>
+
     <h1>Register</h1>
 
     <form class="" action="/register" method="post">
@@ -13,8 +8,16 @@
       <button type="submit" name="button">Sign Up</button>
     </form>
 
-    <a href="/auth/google">Googly Register</a>
+    <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+      <i class="fab fa-google"></i>
+      Sign Up with Google
+    </a>
 
-    <a href="/">Back Home</a>
-  </body>
-</html>
+    <a class="btn btn-block btn-social btn-facebook" href="/auth/google" role="button">
+      <i class="fab fa-facebook"></i>
+      Sign Up with Facebook
+    </a>
+
+
+
+<%- include partials/footer %>

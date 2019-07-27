@@ -61,7 +61,7 @@ router.get("/logout", function(req, res){
 
 // Error Page
 router.get("*", function(req, res){
-  res.send("404 PAGE NOT FOUND");
+  res.render("error");
 });
 
 

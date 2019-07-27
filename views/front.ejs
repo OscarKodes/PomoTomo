@@ -1,108 +1,126 @@
 <%- include partials/header %>
 
-<a href="/register">Register</a>
-<a href="/login">Login</a>
-<a href="/logout">Logout</a>
+<!-- Main Timer Panel -->
+<div class="container text-center border rounded py-3 mt-5">
+  <!-- Time Display -->
+  <h1>
+    <span class="min"></span>:
+    <span class="sec"></span>
+  </h1>
 
-<h1>
-  <span class="min"></span>:
-  <span class="sec"></span>
-</h1>
+  <!-- Start Pomo button -->
+  <button class="start-btn btn btn-primary" type="button" name="button">
+    Start Pomo</button>
 
-<button class="start-btn" type="button" name="button">
-  Start</button>
+  <!-- Pause Pomo button -->
+  <button class="pause-btn invisible btn btn-secondary" type="button" name="button">
+    Pause Pomo</button>
 
-<button class="pause-btn invisible" type="button" name="button">
-  Pause</button>
+  <!-- Take break button -->
+  <button class="break-btn invisible btn btn-success" type="button" name="button">
+    Take Break</button>
 
-<button class="break-btn invisible" type="button" name="button">
-  Take Break</button>
+  <!-- skip break 'link' -->
+  <a class="skip-break-btn invisible nav-link">
+    Skip Break</a>
 
-<button class="skip-break-btn invisible" type="button" name="button">
-  Skip Break</button>
-
-<h4>Pomos Done: <span class="pomos-done"></span></h4>
-
-<div class="alarmSounds">
-  <h1>Alarm Sounds</h1>
-  <div class="">
-    <label for="">
-      <input type="radio" name="alarmSound" value="Default" checked>
-       Default
-    </label>
-  </div>
-
-  <div class="">
-    <label for="">
-      <input type="radio" name="alarmSound" value="Drop">
-       Drop
-    </label>
-  </div>
-
-  <div class="">
-    <label for="">
-      <input type="radio" name="alarmSound" value="Frog">
-       Frog
-    </label>
-  </div>
-
-  <div class="">
-    <label for="">
-      <input type="radio" name="alarmSound" value="Holiday">
-       Holiday
-    </label>
-  </div>
-
-  <div class="">
-    <label for="">
-      <input type="radio" name="alarmSound" value="Horse">
-       Horse
-    </label>
-  </div>
-
-  <div class="">
-    <label for="">
-      <input type="radio" name="alarmSound" value="Spring">
-       Spring
-    </label>
-  </div>
-
+  <!-- pomos done display -->
+  <h4>Pomos Done: <span class="pomos-done"></span></h4>
 </div>
 
-<br>
-<hr>
-<br>
 
-<div class="pomoUpSounds">
-  <h1>PomoUp Sounds</h1>
-  <div class="">
-    <label for="">
-      <input type="radio" name="pomoUpSound" value="Default" checked>
-       Default
-    </label>
+
+<!-- Slide Toggle for Sound Options -->
+<div class="container text-center">
+  <a class="btn btn-outline-secondary btn-sm mt-3"
+  data-toggle="collapse"
+  href="#collapse"
+  aria-expanded="false"
+  aria-controls="collapse">
+  Sound Options
+  </a>
+</div>
+
+
+<!-- Sound Options -->
+<div class="row collapse" id="collapse">
+  <div class="alarmSounds col">
+    <h1>Alarm Sounds</h1>
+    <div class="">
+      <label for="">
+        <input type="radio" name="alarmSound" value="Default" checked>
+         Default
+      </label>
+    </div>
+
+    <div class="">
+      <label for="">
+        <input type="radio" name="alarmSound" value="Drop">
+         Drop
+      </label>
+    </div>
+
+    <div class="">
+      <label for="">
+        <input type="radio" name="alarmSound" value="Frog">
+         Frog
+      </label>
+    </div>
+
+    <div class="">
+      <label for="">
+        <input type="radio" name="alarmSound" value="Holiday">
+         Holiday
+      </label>
+    </div>
+
+    <div class="">
+      <label for="">
+        <input type="radio" name="alarmSound" value="Horse">
+         Horse
+      </label>
+    </div>
+
+    <div class="">
+      <label for="">
+        <input type="radio" name="alarmSound" value="Spring">
+         Spring
+      </label>
+    </div>
+
   </div>
 
-  <div class="">
-    <label for="">
-      <input type="radio" name="pomoUpSound" value="Coin">
-       Coin
-    </label>
-  </div>
+  <div class="pomoUpSounds col">
+    <h1>PomoUp Sounds</h1>
+    <div class="">
+      <label for="">
+        <input type="radio" name="pomoUpSound" value="Default" checked>
+         Default
+      </label>
+    </div>
 
-  <div class="">
-    <label for="">
-      <input type="radio" name="pomoUpSound" value="LevelUp">
-       LevelUp
-    </label>
-  </div>
+    <div class="">
+      <label for="">
+        <input type="radio" name="pomoUpSound" value="Coin">
+         Coin
+      </label>
+    </div>
 
-  <div class="">
-    <label for="">
-      <input type="radio" name="pomoUpSound" value="Shiver">
-       Shiver
-    </label>
-  </div>
+    <div class="">
+      <label for="">
+        <input type="radio" name="pomoUpSound" value="LevelUp">
+         LevelUp
+      </label>
+    </div>
 
+    <div class="">
+      <label for="">
+        <input type="radio" name="pomoUpSound" value="Shiver">
+         Shiver
+      </label>
+    </div>
+
+  </div>
 </div>
 
 
