@@ -1,5 +1,6 @@
 /*jshint esversion: 6 */
 // Require Packages
+require('dotenv').config();
 const express = require("express"),
       app     = express(),
       ejs     = require("ejs"),
@@ -7,7 +8,10 @@ const express = require("express"),
       mongoose = require("mongoose"),
       passport = require("passport"),
       LocalStrategy = require("passport-local"),
-      User = require("./models/user");
+      User = require("./models/user"),
+      session = require("express-session"),
+      GoogleStrategy = require("passport-google-oauth20").Strategy;
+      findOrCreate = require("mongoose-findorcreate");
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -15,14 +19,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
-  secret: "Good Morning, Chrono! Mitochondria is the powerhouse of the cell.",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy(User.authenticate()));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -35,8 +41,11 @@ app.use(function(req, res, next){
 
 
 mongoose.connect("mongodb://localhost:27017/pomotomo",
-{useNewUrlParser: true, useFindAndModify: false});
-
+{
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+});
 
 
 app.get("/", function(req, res){
@@ -54,15 +63,19 @@ app.get("/register", function(req, res){
 
 // handle user registration
 app.post("/register", function(req, res){
-  let newUser = new User({username: req.body.username});
-  User.register(newUser, req.body.password, function(err, user){
+
+  User.register(
+    {email: req.body.email},
+    req.body.password,
+    function(err, user){
     if (err) {
       console.log(err);
       return res.render("register");
+    } else {
+      passport.authenticate("local")(req, res, function(){
+        res.redirect("/");
+      });
     }
-    passport.authenticate("local")(req, res, function(){
-      res.redirect("/");
-    });
   });
 });
 
@@ -90,9 +103,9 @@ app.get("/logout", function(req, res){
 function isLoggedIn(req, res, next){
   if (req.isAuthenticated()){
     return next();
+  } else {
+    res.redirect("/login");
   }
-
-  res.redirect("/login");
 }
 
 
