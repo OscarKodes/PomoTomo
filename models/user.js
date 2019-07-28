@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   googleId: String,
+  name: String,
   days: [daySchema],
   alarmSound: {
     type: String,
