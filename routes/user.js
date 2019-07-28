@@ -49,19 +49,21 @@ router.put("/:id", function(req, res){
           } else {
             let newDay = {
               date: today,
-              pomos: req.body.pomosDoneInput
+              pomos: 1
             }
             foundUser.days.push(newDay);
             foundUser.save();
             console.log(foundUser);
+            res.redirect("/front/b");
           }
         });
       } else {
         // if current user found with current day, just update the pomo
         let currDay = userWithToday.days[0];
-        currDay.pomos = req.body.pomosDoneInput;
+        currDay.pomos++;
         userWithToday.save();
         console.log(userWithToday);
+        res.redirect("/front/b");
       }
   });
 });

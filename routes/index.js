@@ -10,7 +10,11 @@ router.get("/", function(req, res){
 });
 
 router.get("/front", function(req, res){
-  res.render("front");
+  res.render("front", {breakSetup: "OFF"});
+});
+
+router.get("/front/b", function(req, res){
+  res.render("front", {breakSetup: "ON"});
 });
 
 router.get("/secrets", isLoggedIn, function(req, res){

@@ -11,6 +11,9 @@ user's pomo info to the backend -->
   </div>
 <% } %>
 
+<!-- Another invisible form, to show if we should show the break screen-->
+<input id="breakSetup" class="invisible" value="<%= breakSetup %>">
+
 
 <!-- Main Timer Panel -->
 <div class="container text-center border rounded py-3 mt-5">
@@ -21,7 +24,7 @@ user's pomo info to the backend -->
   </h1>
 
   <!-- Start Pomo button -->
-  <button class="start-btn btn btn-primary" type="button" name="button">
+  <button class="start-btn invisible btn btn-primary" type="button" name="button">
     Start Pomo</button>
 
   <!-- Pause Pomo button -->
@@ -42,7 +45,11 @@ user's pomo info to the backend -->
       <% let today = new Date(); %>
       <% today = today.toDateString(); %>
       <% if (currentUser && currentUser.days[0] && currentUser.days[0].date === today) { %>
-        <%= currentUser.days[0].pomos %>
+          <% if (breakSetup === "ON") { %>
+            <%= currentUser.days[0].pomos - 1 %>
+          <% } else { %>
+            <%= currentUser.days[0].pomos %>
+          <% } %>
       <% } else { %>
         0
       <% } %>

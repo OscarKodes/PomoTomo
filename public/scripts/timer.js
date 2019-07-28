@@ -11,24 +11,42 @@ let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
 let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
 let pomosDoneInput = document.querySelector("#pomosDoneInput");
 let pomoUpFormSubmit = document.querySelector("#pomoUpFormSubmit");
+let breakSetup = document.querySelector("#breakSetup");
 let selectedAlarm, selectedPomoUp;
 
 /// DECLARE VARIABLES ======================
 let breakOn = false;
 let pomoOn = false;
 let pomosDone = pomosDisplay.innerText;
-let min, sec, countdown, skipMidBreak,
-    chosenAlarm, alarm, chosenUpSound, pomoUpSound;
+let min, sec, countdown, chosenAlarm, alarm,
+    chosenUpSound, pomoUpSound, skipMidbreak;
 
 // DECLARE FUNCTIONS ===========================================
 
-// This will set up the button event listeners & number displays
-timerInit();
+// check if user logged in & on break page by accident
+// if not redirect them to front
+// pomosDoneInput will only show up on the page if a user is logged in
+// so it is being used here to see if user is logged in
+if (breakSetup.value === "ON" && !pomosDoneInput) {
+  window.location.href = "http://localhost:3000/front";
+} else {
+  // This will set up the button event listeners & number displays
+  timerInit();
+}
+
 
 // INIT FUNCTION --------------------------------------
 function timerInit() {
 
-  pomoRoundSetup(); // sets up the min, sec, and start button
+  // this is to check if the users have just finished a pomo
+  // if they have, it has been sent to the backend to update their
+  // pomo count, now they're back here, so we give them the break button
+  // otherwise, we give them the standard pomo setup
+  if (breakSetup.value === "ON") {
+    breakRoundSetup();
+  } else {
+    pomoRoundSetup(); // sets up the min, sec, and start button
+  }
 
   // set up all listeners for buttons
   setUpListeners();
@@ -66,7 +84,7 @@ function setUpListeners(){
 
   skipBreakBtn.addEventListener("click", function(){
     if (breakOn) {
-      skipMidBreak = true;
+      skipMidbreak = true;
       clearTimeout(countdown);
       timesUp();
     } else {
@@ -122,7 +140,7 @@ function countdownOn() {
   countdown = // declaring it as a variable we can use clearTimeout()
     setTimeout(function () {
       sec--;
-      if (sec + min === 0) {
+      if (sec + min < 0) {
         // timesUp will end the recursion by making pomoOn & breakOn false
         timesUp();
       } else if (sec === -1) {
@@ -147,14 +165,21 @@ function countdownOn() {
 
 function timesUp() {
   clearTimeout(countdown);
-  if (!skipMidBreak) {
+  if (!skipMidbreak) {
     alarm.play();
-  } else {
-    skipMidBreak = false;
+  } else if (skipMidbreak){
+    skipMidbreak = false;
   }
   if (pomoOn) {
     pomoOn = false;
-    breakRoundSetup();
+    // checks to see if user is logged in
+    if (pomosDoneInput) {
+      // sends pomo to backend
+      // waits for alarm to finish
+      setTimeout(updateBackEndPomo, 1500);
+    } else {
+      breakRoundSetup(); // sends guest to break
+    }
   } else if (breakOn) {
     breakOn = false;
     pomoRoundSetup();
@@ -165,9 +190,10 @@ function pomoUp(){
   pomosDone++;
   pomosDisplay.innerText = pomosDone;
   pomoUpSound.play();
+}
 
-  if (pomosDoneInput) {
-    pomosDoneInput.value = pomosDone;
-    pomoUpFormSubmit.click();
-  }
+function updateBackEndPomo(){
+  // if yes, this will send a put request to express
+  pomosDoneInput.value = pomosDone;
+  pomoUpFormSubmit.click();
 }
