@@ -9,12 +9,14 @@ let secDisplay = document.querySelector(".sec");
 let pomosDisplay = document.querySelector(".pomos-done");
 let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
 let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
+let pomosDoneInput = document.querySelector("#pomosDoneInput");
+let pomoUpFormSubmit = document.querySelector("#pomoUpFormSubmit");
 let selectedAlarm, selectedPomoUp;
 
 /// DECLARE VARIABLES ======================
 let breakOn = false;
 let pomoOn = false;
-let pomosDone = 0;
+let pomosDone = pomosDisplay.innerText;
 let min, sec, countdown, skipMidBreak,
     chosenAlarm, alarm, chosenUpSound, pomoUpSound;
 
@@ -25,8 +27,8 @@ timerInit();
 
 // INIT FUNCTION --------------------------------------
 function timerInit() {
+
   pomoRoundSetup(); // sets up the min, sec, and start button
-  pomosDisplay.innerText = pomosDone; // sets up the display for pomos done
 
   // set up all listeners for buttons
   setUpListeners();
@@ -163,4 +165,9 @@ function pomoUp(){
   pomosDone++;
   pomosDisplay.innerText = pomosDone;
   pomoUpSound.play();
+
+  if (pomosDoneInput) {
+    pomosDoneInput.value = pomosDone;
+    pomoUpFormSubmit.click();
+  }
 }

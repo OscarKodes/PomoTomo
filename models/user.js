@@ -4,14 +4,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require("mongoose-findorcreate");
 
 const daySchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    default: Date.now
-  },
-  pomos: {
-    type: Number,
-    default: 0
-  }
+  date: String,
+  pomos: Number,
 });
 
 const userSchema = new mongoose.Schema({

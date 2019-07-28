@@ -6,6 +6,7 @@ const express = require("express"),
       ejs     = require("ejs"),
       bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
+      methodOverride = require("method-override");
       passport = require("passport"),
       LocalStrategy = require("passport-local"),
       User = require("./models/user"),
@@ -14,12 +15,14 @@ const express = require("express"),
 
 // REQUIRE ROUTE MODULE FILES
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 const indexRoutes = require("./routes/index");
 
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -60,6 +63,7 @@ mongoose.connect("mongodb://localhost:27017/pomotomo",
 
 // Tell app to use the routes and declare each route's prefix
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 app.use(indexRoutes);
 
 
