@@ -25,8 +25,6 @@ const User = require("../models/user");
 // for user's pomos, and settings
 router.put("/:id", function(req, res){
 
-  // console.log(req.body.breakOn);
-
   let today = new Date();
   today = today.toDateString();
 
@@ -52,6 +50,8 @@ router.put("/:id", function(req, res){
               pomos: 1
             }
             foundUser.days.push(newDay);
+            foundUser.alarmSound = req.body.alarmSoundInput;
+            foundUser.pomoUpSound = req.body.pomoUpSoundInput;
             foundUser.save();
             console.log(foundUser);
             res.redirect("/front/b");
@@ -61,6 +61,8 @@ router.put("/:id", function(req, res){
         // if current user found with current day, just update the pomo
         let currDay = userWithToday.days[0];
         currDay.pomos++;
+        userWithToday.alarmSound = req.body.alarmSoundInput;
+        userWithToday.pomoUpSound = req.body.pomoUpSoundInput;
         userWithToday.save();
         console.log(userWithToday);
         res.redirect("/front/b");
