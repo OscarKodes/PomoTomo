@@ -16,6 +16,8 @@ let pomoUpFormSubmit = document.querySelector("#pomoUpFormSubmit");
 let breakSetup = document.querySelector("#breakSetup");
 let alarmDisplay = document.querySelector("#alarmDisplay");
 let pomoUpDisplay = document.querySelector("#pomoUpDisplay");
+let testAlarmBtn = document.querySelector("#test-alarm-btn");
+let testPomoUpBtn = document.querySelector("#test-pomoUp-btn");
 let selectedAlarm, selectedPomoUp;
 
 /// DECLARE VARIABLES ======================
@@ -141,6 +143,14 @@ function setUpSoundPickListeners(){
        pomoUpSoundInput.value = index;
       }
     });
+  });
+
+  // Setup Listeners for Test buttons
+  testAlarmBtn.addEventListener("click", function() {
+    alarm.play();
+  });
+  testPomoUpBtn.addEventListener("click", function(){
+    pomoUpSound.play();
   });
 }
 
