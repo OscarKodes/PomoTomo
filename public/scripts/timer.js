@@ -6,9 +6,12 @@ let breakBtn = document.querySelector(".break-btn");
 let skipBreakBtn = document.querySelector(".skip-break-btn");
 let minDisplay = document.querySelector(".min");
 let secDisplay = document.querySelector(".sec");
+let title = document.querySelector("title");
 let pomosDisplay = document.querySelector(".pomos-done");
 let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
 let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
+
+// input selectors to send info to the backend
 let pomosDoneInput = document.querySelector("#pomosDoneInput");
 let alarmSoundInput = document.querySelector("#alarmSoundInput");
 let pomoUpSoundInput = document.querySelector("#pomoUpSoundInput");
@@ -18,16 +21,20 @@ let alarmDisplay = document.querySelector("#alarmDisplay");
 let pomoUpDisplay = document.querySelector("#pomoUpDisplay");
 let testAlarmBtn = document.querySelector("#test-alarm-btn");
 let testPomoUpBtn = document.querySelector("#test-pomoUp-btn");
-let selectedAlarm, selectedPomoUp;
 
 /// DECLARE VARIABLES ======================
 let breakOn = false;
 let pomoOn = false;
 let alarmNum = 0;
 let pomoUpNum = 0;
+// pomosDisplay's inner text will show the amount a logged in user has already done on page load
+// if the user isn't logged in, it'll show 0 by defaut on page load
+// so we automatically want pomosDone to equal this amount
+// this is an indirect way to get data from the backend
 let pomosDone = pomosDisplay.innerText;
 let min, sec, countdown, chosenAlarm, alarm,
-    chosenUpSound, pomoUpSound, skipMidbreak;
+    chosenUpSound, pomoUpSound, skipMidbreak,
+    selectedAlarm, selectedPomoUp;
 
 // DECLARE FUNCTIONS ===========================================
 
@@ -183,17 +190,8 @@ function countdownOn() {
       if (sec + min < 0) {
         // timesUp will end the recursion by making pomoOn & breakOn false
         timesUp();
-      } else if (sec === -1) {
-        sec = 59;
-        min--;
-        secDisplay.innerText = sec;
-        minDisplay.innerText = min;
-      } else if (sec < 10) {
-        secDisplay.innerText = "0" + String(sec);
-      } else if (sec === 60) {
-        secDisplay.innerText = "00";
       } else {
-        secDisplay.innerText = sec;
+        updateTimeDisplays()
       }
       // check pomoOn and breakOn are true to know we're still counting
       // use recursive case to call upon countdownOn again
@@ -222,6 +220,7 @@ function timesUp() {
     }
   } else if (breakOn) {
     breakOn = false;
+    title.innerText = "25:00";
     pomoRoundSetup();
   }
 }
@@ -246,4 +245,21 @@ function updateBackEndPomo(){
 function displaySounds(alarmNum, pomoUpNum) {
   alarmDisplay.innerText = allAlarmRadios[alarmNum].value;
   pomoUpDisplay.innerText = allPomoUpRadios[pomoUpNum].value;
+}
+
+function updateTimeDisplays() {
+  if (sec === -1) {
+    sec = 59;
+    min--;
+    secDisplay.innerText = sec;
+  } else if (sec < 10) {
+    secDisplay.innerText = "0" + String(sec);
+  } else if (sec === 60) {
+    secDisplay.innerText = "00";
+  } else {
+    secDisplay.innerText = sec;
+  }
+  minDisplay.innerText = min;
+  // update title text
+  title.innerText = minDisplay.innerText + ":" + secDisplay.innerText;
 }
