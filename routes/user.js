@@ -16,14 +16,25 @@ const User = require("../models/user");
 // Register routes take care of this.
 
 // SHOW ROUTE
-// for user stats and settings page
+// for user stats
+router.get("/:id", isLoggedIn, function(req, res){
+  User.findById(req.params.id, function(err, foundUser){
+    if (err) {
+      console.log(err);
+      res.redirect("back");
+    } else {
+      console.log(foundUser.days);
+      res.render("stats", {days: foundUser.days});
+    }
+  });
+});
 
 // EDIT ROUTE
 // settings page
 
 // UPDATE ROUTE
 // for user's pomos, and settings
-router.put("/:id", function(req, res){
+router.put("/:id", isLoggedIn, function(req, res){
 
   let today = new Date();
   today = today.toDateString();
@@ -72,6 +83,15 @@ router.put("/:id", function(req, res){
 
 // DESTROY ROUTE
 // Maybe no need.
+
+// Middleware functions
+function isLoggedIn(req, res, next){
+  if (req.isAuthenticated()){
+    return next();
+  } else {
+    res.redirect("/login");
+  }
+}
 
 
 module.exports = router;
