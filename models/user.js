@@ -15,12 +15,12 @@ const userSchema = new mongoose.Schema({
   name: String,
   days: [daySchema],
   alarmSound: {
-    type: String,
-    default: "Default"
+    type: Number,
+    default: 0
   },
   pomoUpSound: {
-    type: String,
-    default: "Default"
+    type: Number,
+    default: 0
   }
 });
 
