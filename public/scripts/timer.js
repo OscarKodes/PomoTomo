@@ -28,7 +28,7 @@ let min, sec, countdown, chosenAlarm, alarm,
 // pomosDoneInput will only show up on the page if a user is logged in
 // so it is being used here to see if user is logged in
 if (breakSetup.value === "ON" && !pomosDoneInput) {
-  window.location.href = "http://localhost:3000/front";
+  window.location.replace("/front");
 } else {
   // This will set up the button event listeners & number displays
   timerInit();
