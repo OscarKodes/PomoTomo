@@ -6,6 +6,8 @@ user's pomo info to the backend -->
   <div class="invisible">
     <form action="/user/<%= currentUser._id %>?_method=PUT" method="post">
       <input id="pomosDoneInput" type="number" name="pomosDoneInput" value="">
+      <input id="alarmSoundInput" type="number" name="alarmSoundInput" value="<%= currentUser.alarmSound %>">
+      <input id="pomoUpSoundInput" type="number" name="pomoUpSoundInput" value="<%= currentUser.pomoUpSound %>">
       <button id="pomoUpFormSubmit" type="submit"></button>
     </form>
   </div>

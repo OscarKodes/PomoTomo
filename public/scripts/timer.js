@@ -10,6 +10,8 @@ let pomosDisplay = document.querySelector(".pomos-done");
 let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
 let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
 let pomosDoneInput = document.querySelector("#pomosDoneInput");
+let alarmSoundInput = document.querySelector("#alarmSoundInput");
+let pomoUpSoundInput = document.querySelector("#pomoUpSoundInput");
 let pomoUpFormSubmit = document.querySelector("#pomoUpFormSubmit");
 let breakSetup = document.querySelector("#breakSetup");
 let selectedAlarm, selectedPomoUp;
@@ -53,9 +55,18 @@ function timerInit() {
   // set up all listeners for radio buttons
   setUpSoundPickListeners();
 
+
   // auto click on default sounds, so sounds are defined
-  allAlarmRadios[0].click();
-  allPomoUpRadios[0].click();
+  let alarmNum = 0;
+  let pomoUpNum = 0;
+  // if user is logged in, we check what they're saved sound options are
+  if (alarmSoundInput) {
+    alarmNum = alarmSoundInput.value;
+    pomoUpNum = pomoUpSoundInput.value;
+  }
+  // whether a guest or a user, we auto click on their set sounds
+  allAlarmRadios[alarmNum].click();
+  allPomoUpRadios[pomoUpNum].click();
 }
 
 // SETUP Button Listeners --------------------------------
@@ -96,20 +107,32 @@ function setUpListeners(){
 
 function setUpSoundPickListeners(){
   // add listeners to radio buttons for choosing an alarm sound
-  allAlarmRadios.forEach(function(radioBtn){
+  allAlarmRadios.forEach(function(radioBtn, index){
     radioBtn.addEventListener("click", function(){
       selectedAlarm = document.querySelector(".alarmSounds input:checked");
       chosenAlarm = selectedAlarm.value;
       alarm = new Audio('/sounds/alarm' + chosenAlarm + '.ogg');
+      // make the invisible input on the front page retain the index of the sound
+      // this will allow us to save the user's selection when sending to the backend
+      // also, we have to make sure the user is logged in but seeing if the input exists
+      if (alarmSoundInput) {
+        alarmSoundInput.value = index;
+      }
     });
   });
 
   // add listeners to radio buttons for choosing a pomoUp sound
-  allPomoUpRadios.forEach(function(radioBtn){
+  allPomoUpRadios.forEach(function(radioBtn, index){
     radioBtn.addEventListener("click", function(){
       selectedPomoUp = document.querySelector(".pomoUpSounds input:checked");
       chosenUpSound = selectedPomoUp.value;
       pomoUpSound = new Audio('/sounds/pomoUp' + chosenUpSound + '.ogg');
+      // make the invisible input on the front page retain the index of the sound
+      // this will allow us to save the user's selection when sending to the backend
+      // also, we have to make sure the user is logged in but seeing if the input exists
+      if (alarmSoundInput) {
+       pomoUpSoundInput.value = index;
+      }
     });
   });
 }
