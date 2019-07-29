@@ -4,6 +4,7 @@ const router = express.Router();
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("../models/user");
+const statsProcess = require("../modules/statsProcess")
 
 
 // INDEX ROUTE
@@ -18,13 +19,14 @@ const User = require("../models/user");
 // SHOW ROUTE
 // for user stats
 router.get("/:id", isLoggedIn, function(req, res){
+
   User.findById(req.params.id, function(err, foundUser){
     if (err) {
       console.log(err);
       res.redirect("back");
     } else {
-      console.log(foundUser.days);
-      res.render("stats", {days: foundUser.days});
+      let statObj = statsProcess(foundUser.days);
+      res.render("stats", {days: foundUser.days, stats: statObj});
     }
   });
 });

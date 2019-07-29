@@ -1,15 +1,72 @@
 <%- include partials/header %>
 
-  <h1>stats</h1>
+<h1 class="display-4 text-center my-5">My PomoTomo Stats</h1>
 
-  <% days.forEach(function(day){ %>
-    <p>
-      <em><%= day.date %></em>
-       -
-      <strong><%= day.pomos %></strong>
-       pomos done.
-    </p>
-  <% }); %>
+<!-- Tabs -->
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link ml-auto active" id="nav-home-tab"
+      data-toggle="tab" href="#nav-home" role="tab"
+      aria-controls="nav-home" aria-selected="true">
+      Graph - 5 Days</a>
+    <a class="nav-item nav-link mx-2" id="nav-profile-tab"
+      data-toggle="tab" href="#nav-profile" role="tab"
+      aria-controls="nav-profile" aria-selected="false">
+      Graph - 10 Days</a>
+    <a class="nav-item nav-link mr-auto" id="nav-contact-tab"
+      data-toggle="tab" href="#nav-contact" role="tab"
+      aria-controls="nav-contact" aria-selected="false">
+      List - All Time</a>
+  </div>
+</nav>
+
+
+<!-- Tab Contents -->
+<div class="tab-content" id="nav-tabContent">
+
+  <div class="tab-pane fade show active" id="nav-home"
+    role="tabpanel" aria-labelledby="nav-home-tab">
+    Graph
+    <p>Five day average: <%= stats.fiveAverage %></p>
+    <p>Five day total: <%= stats.fiveTotal %></p>
+  </div>
+
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel"
+    aria-labelledby="nav-profile-tab">
+    Graph
+    <p>Ten day average: <%= stats.tenAverage %></p>
+    <p>Ten day total: <%= stats.tenTotal %></p>
+  </div>
+
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel"
+    aria-labelledby="nav-contact-tab">
+
+    <div class="text-center mt-5 mb-4">
+      <p>All time average: <%= stats.allAverage %> pomos/day</p>
+      <p>All time total: <%= stats.allTotal %> pomos</p>
+    </div>
+
+    <div class="container all-time-table">
+      <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class="text-right" scope="col">Date Visited</th>
+              <th class="" scope="col">Pomos Done</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% days.forEach(function(day){ %>
+              <td class="text-right"><%= day.date.slice(0, -4) %> </td>
+              <td class="text-left"> <%= day.pomos %></td>
+            <% }); %>
+          </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
 
 
 
