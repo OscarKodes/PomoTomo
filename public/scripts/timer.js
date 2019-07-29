@@ -228,8 +228,13 @@ function timesUp() {
 
 function pomoUp(){
   pomosDone++;
-  pomosDisplay.innerText = pomosDone;
+  pomosDisplay.classList.add("pomo-up");
+  pomosDisplay.innerText = pomosDone + "+";
   pomoUpSound.play();
+  setTimeout(function () {
+    pomosDisplay.classList.remove("pomo-up");
+    pomosDisplay.innerText = pomosDone;
+  }, 1000);
 }
 
 function updateBackEndPomo(){
