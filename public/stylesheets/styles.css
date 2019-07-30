@@ -1,9 +1,12 @@
-.invisible {
-  display: none;
+
+/* HEADER NAVBAR CLASSES */
+.user-stats-link {
+  text-transform: capitalize;
 }
 
-.sound-card {
-  width: 35%;
+/* FRONT PAGE CLASSES ================================ */
+.invisible {
+  display: none;
 }
 
 .pomo-up {
@@ -13,6 +16,17 @@
   padding: 4px;
 }
 
+.front-page-note {
+  font-size: 0.8rem;
+  color: grey;
+}
+
+.sound-card {
+  width: 35%;
+}
+
+
+/* STATS PAGE CLASSES =============================== */
 .all-time-table {
   width: 50%;
 }
@@ -38,13 +52,4 @@
 
 .pomo-date {
   font-family: monospace;
-}
-
-.front-page-note {
-  font-size: 0.8rem;
-  color: grey;
-}
-
-.user-stats-link {
-  text-transform: capitalize;
 }
