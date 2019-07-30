@@ -25,6 +25,7 @@
 
 .graph-item {
   background-color: yellowgreen;
+  border: 1px solid lightgrey;
   width: 100%;
   padding: 5px 0;
 }
@@ -33,4 +34,8 @@
   background-color: lightgrey;
   width: 100%;
   padding: 5px 0;
+}
+
+.pomo-date {
+  font-family: monospace;
 }
