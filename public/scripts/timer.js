@@ -13,7 +13,7 @@ let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
 let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
 
 // input selectors to send info to the backend
-let pomosDoneInput = document.querySelector("#pomosDoneInput");
+let userLoggedIn = document.querySelector("#userLoggedIn");
 let alarmSoundInput = document.querySelector("#alarmSoundInput");
 let pomoUpSoundInput = document.querySelector("#pomoUpSoundInput");
 let pomoUpFormSubmit = document.querySelector("#pomoUpFormSubmit");
@@ -41,9 +41,9 @@ let min, sec, countdown, chosenAlarm, alarm,
 
 // check if user logged in & on break page by accident
 // if not redirect them to front
-// pomosDoneInput will only show up on the page if a user is logged in
+// userLoggedIn will only show up on the page if a user is logged in
 // so it is being used here to see if user is logged in
-if (breakSetup.value === "ON" && !pomosDoneInput) {
+if (breakSetup.value === "ON" && !userLoggedIn) {
   window.location.replace("/front");
 } else {
   // This will set up the button event listeners & number displays
@@ -71,7 +71,7 @@ function timerInit() {
 
   // auto click on default sounds, so sounds are defined
   // if user is logged in, we check what they're saved sound options are
-  if (alarmSoundInput) {
+  if (userLoggedIn) {
     alarmNum = alarmSoundInput.value;
     pomoUpNum = pomoUpSoundInput.value;
   }
@@ -140,7 +140,7 @@ function setUpSoundPickListeners(){
       // make the invisible input on the front page retain the index of the sound
       // this will allow us to save the user's selection when sending to the backend
       // also, we have to make sure the user is logged in but seeing if the input exists
-      if (alarmSoundInput) {
+      if (userLoggedIn) {
         alarmSoundInput.value = index;
       }
     });
@@ -158,7 +158,7 @@ function setUpSoundPickListeners(){
       // make the invisible input on the front page retain the index of the sound
       // this will allow us to save the user's selection when sending to the backend
       // also, we have to make sure the user is logged in but seeing if the input exists
-      if (alarmSoundInput) {
+      if (userLoggedIn) {
        pomoUpSoundInput.value = index;
       }
     });
@@ -179,7 +179,10 @@ function breakRoundSetup(){
   sec = 0;
   minDisplay.innerText = min;
   secDisplay.innerText = "00";
-  if ((pomosDone + 1) % 4 === 0) {
+  // checks if four rounds have passed, make 15 minute break button appear
+  // here we use the pomosDisplay text instead of pomosDone
+  // this way it can work with both guests and logged in users
+  if ((Number(pomosDisplay.innerText) + 1) % 4 === 0) {
     longBreakBtn.classList.remove("invisible");
   }
   breakBtn.classList.remove("invisible");
@@ -227,7 +230,7 @@ function timesUp() {
   if (pomoOn) {
     pomoOn = false;
     // checks to see if user is logged in
-    if (pomosDoneInput) {
+    if (userLoggedIn) {
       // sends pomo to backend
       // waits for alarm to finish
       setTimeout(updateBackEndPomo, 1500);
@@ -254,7 +257,6 @@ function pomoUp(){
 
 function updateBackEndPomo(){
   // if yes, this will send a put request to express
-  pomosDoneInput.value = pomosDone;
   pomoUpFormSubmit.click();
 }
 

@@ -3,9 +3,8 @@
 <!-- Invisible form, as a way for us to send
 user's pomo info to the backend -->
 <% if (currentUser) { %>
-  <div class="invisible">
+  <div id="userLoggedIn" class="invisible">
     <form action="/user/<%= currentUser._id %>?_method=PUT" method="post">
-      <input id="pomosDoneInput" type="number" name="pomosDoneInput" value="">
       <input id="alarmSoundInput" type="number" name="alarmSoundInput" value="<%= currentUser.alarmSound %>">
       <input id="pomoUpSoundInput" type="number" name="pomoUpSoundInput" value="<%= currentUser.pomoUpSound %>">
       <button id="pomoUpFormSubmit" type="submit"></button>
