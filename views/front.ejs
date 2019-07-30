@@ -17,40 +17,10 @@ user's pomo info to the backend -->
 
 
 <!-- Main Timer Panel -->
-<div class="container text-center border rounded py-3 mt-5">
-  <!-- Time Display -->
-  <h1>
-    <span class="min"></span>:
-    <span class="sec"></span>
-  </h1>
+<div class="container text-center border rounded pt-4 pb-2 mt-5 timer-container">
 
-  <!-- Start Pomo button -->
-  <button class="start-btn invisible btn btn-primary" type="button" name="button">
-    Start Pomo</button>
-
-  <!-- Pause Pomo button -->
-  <button class="pause-btn invisible btn btn-secondary" type="button" name="button">
-    Pause Pomo</button>
-
-  <!-- 15 min break button -->
-  <div class="text-center mb-3">
-    <button class="long-break-btn invisible btn btn-success" type="button" name="button">
-      <i class="far fa-star fa-lg"></i> Take 15 Min Break </button>
-  </div>
-
-  <!-- Take break button -->
-  <button class="break-btn invisible btn btn-success" type="button" name="button">
-    Take 5 Min Break</button>
-
-  <!-- Skip break button -->
-  <div class="my-3">
-    <button class="skip-break-btn invisible btn btn-outline-dark btn-sm py-0" type="button" name="button">
-      Skip Break</button>
-  </div>
-
-
-  <!-- pomos done display -->
-  <h4>Pomos Done:
+  <!-- Pomos Done Display -->
+  <p class="mb-3 pomos-done-text">Pomos Done:
     <span class="pomos-done">
       <% let today = new Date(); %>
       <% today = today.toDateString(); %>
@@ -64,15 +34,44 @@ user's pomo info to the backend -->
         0
       <% } %>
     </span>
-  </h4>
+  </p>
 
-  <p class="mt-3 front-page-note">Pomos done are only saved if logged in.</p>
-</div>
+  <!-- Time Display -->
+  <h1 class="mb-4 display-1">
+    <span class="min"></span>:
+    <span class="sec"></span>
+  </h1>
 
-<!-- Sound Displays -->
-<div class="text-center mt-4">
-  <p>Times Up Sound: <span id="alarmDisplay"></span></p>
-  <p>Pomos Done Sound: <span id="pomoUpDisplay"></span></p>
+  <!-- Start Pomo button -->
+  <a class="start-btn invisible fa fa-play-circle fa-7x">
+    </a>
+
+  <!-- Pause Pomo button -->
+  <a class="pause-btn invisible fas fa-pause-circle fa-7x">
+    </a>
+
+  <!-- 15 min break button -->
+  <div class="text-center mb-3">
+    <button class="long-break-btn invisible btn btn-primary btn-lg" type="button" name="button">
+      <i class="far fa-star fa-lg mr-1"></i> Take 15 Min Break </button>
+  </div>
+
+  <!-- Take break button -->
+  <button class="break-btn invisible btn btn-primary btn-lg" type="button" name="button">
+    Take 5 Min Break</button>
+
+  <!-- Skip break button -->
+  <div class="my-3">
+    <button class="skip-break-btn invisible btn btn-outline-dark btn-sm py-0" type="button" name="button">
+      Skip Break</button>
+  </div>
+
+  <!-- Note to users -->
+  <% if (!currentUser) { %>
+    <p class="mt-5 front-page-note">
+      Pomos done are only saved if logged in.
+    </p>
+  <% } %>
 </div>
 
 
@@ -87,74 +86,105 @@ user's pomo info to the backend -->
   </a>
 </div>
 
+<!-- Sound Displays -->
+<div class="text-center mt-4">
+
+
+</div>
 
 <!-- Sound Options -->
 <div class="collapse" id="collapse">
-  <div class="alarmSounds card sound-card my-3 mx-auto">
-    <h3 class="card-header text-center">Times Up Sounds</h3>
+  <div class="d-flex flex-row justify-content-center">
 
+    <!-- Alarm sound card -->
+    <div class="alarmSounds card sound-card my-4">
+      <h3 class="card-header bg-dark text-light text-center">Times Up</h3>
+
+        <div class="d-flex flex-column mx-auto my-2">
+
+          <label for="">
+            <input type="radio" name="alarmSound" value="Default">
+             Default
+          </label>
+
+          <label for="">
+            <input type="radio" name="alarmSound" value="Drop">
+             Drop
+          </label>
+
+          <label for="">
+            <input type="radio" name="alarmSound" value="Frog">
+             Frog
+          </label>
+
+          <label for="">
+            <input type="radio" name="alarmSound" value="Holiday">
+             Holiday
+          </label>
+
+          <label for="">
+            <input type="radio" name="alarmSound" value="Horse">
+             Horse
+          </label>
+
+          <label for="">
+            <input type="radio" name="alarmSound" value="Spring">
+             Spring
+          </label>
+
+        </div>
+
+        <p class="text-center">Current Sound: <span id="alarmDisplay"></span></p>
+
+        <div class="text-center mb-3">
+          <button id="test-alarm-btn" class="btn btn-dark btn-lg" type="button" name="button">
+            <i class="fas fa-music mr-1"></i> Test Sound
+          </button>
+        </div>
+
+    </div>
+
+    <div class="mx-2">
+      <!-- a div made for extra margins -->
+    </div>
+
+    <!-- Pomo Up Sound Card -->
+    <div class="pomoUpSounds card sound-card my-4">
+      <h3 class="card-header bg-dark text-light text-center">Pomo Up</h3>
       <div class="d-flex flex-column mx-auto my-2">
 
         <label for="">
-          <input type="radio" name="alarmSound" value="Default">
+          <input type="radio" name="pomoUpSound" value="Default">
            Default
         </label>
 
         <label for="">
-          <input type="radio" name="alarmSound" value="Drop">
-           Drop
+          <input type="radio" name="pomoUpSound" value="Coin">
+           Coin
         </label>
 
         <label for="">
-          <input type="radio" name="alarmSound" value="Frog">
-           Frog
+          <input type="radio" name="pomoUpSound" value="LevelUp">
+           LevelUp
         </label>
 
         <label for="">
-          <input type="radio" name="alarmSound" value="Holiday">
-           Holiday
-        </label>
-
-        <label for="">
-          <input type="radio" name="alarmSound" value="Horse">
-           Horse
-        </label>
-
-        <label for="">
-          <input type="radio" name="alarmSound" value="Spring">
-           Spring
+          <input type="radio" name="pomoUpSound" value="Shiver">
+           Shiver
         </label>
       </div>
-      <button id="test-alarm-btn" class="btn btn-info" type="button" name="button">Test Selected Sound</button>
-  </div>
 
-  <div class="pomoUpSounds card sound-card mx-auto">
-    <h3 class="card-header text-center">Pomos Done Sound</h3>
-    <div class="d-flex flex-column mx-auto my-2">
+      <p class="text-center mt-auto">Current Sound: <span id="pomoUpDisplay"></span></p>
 
-      <label for="">
-        <input type="radio" name="pomoUpSound" value="Default">
-         Default
-      </label>
+      <div class="text-center mb-3">
+        <button id="test-pomoUp-btn" class="btn btn-dark btn-lg" type="button" name="button">
+          <i class="fas fa-music mr-1"></i> Test Sound
+        </button>
+      </div>
 
-      <label for="">
-        <input type="radio" name="pomoUpSound" value="Coin">
-         Coin
-      </label>
-
-      <label for="">
-        <input type="radio" name="pomoUpSound" value="LevelUp">
-         LevelUp
-      </label>
-
-      <label for="">
-        <input type="radio" name="pomoUpSound" value="Shiver">
-         Shiver
-      </label>
     </div>
-    <button id="test-pomoUp-btn" class="btn btn-info" type="button" name="button">Test Selected Sound</button>
-  </div>
 
+  </div>
 </div>
 
 

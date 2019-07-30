@@ -5,8 +5,26 @@
 }
 
 /* FRONT PAGE CLASSES ================================ */
+.timer-container {
+  width: 30%;
+  min-width: 25rem;
+}
+
+.pomos-done-text {
+  font-size: 1.25rem;
+  text-transform: full-width;
+}
+
 .invisible {
   display: none;
+}
+
+a.start-btn.fa.fa-play-circle {
+  color: green;
+}
+
+a.pause-btn.fas.fa-pause-circle {
+  color: grey;
 }
 
 .pomo-up {
@@ -22,7 +40,8 @@
 }
 
 .sound-card {
-  width: 35%;
+  width: 25%;
+  min-width: 17rem;
 }
 
 
