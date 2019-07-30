@@ -16,3 +16,21 @@
 .all-time-table {
   width: 50%;
 }
+
+.graph-box {
+  width: 75%;
+  height: 25rem;
+  margin: 0 auto;
+}
+
+.graph-item {
+  background-color: yellowgreen;
+  width: 100%;
+  padding: 5px 0;
+}
+
+.graph-item-empty {
+  background-color: lightgrey;
+  width: 100%;
+  padding: 5px 0;
+}
