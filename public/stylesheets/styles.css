@@ -39,3 +39,12 @@
 .pomo-date {
   font-family: monospace;
 }
+
+.front-page-note {
+  font-size: 0.8rem;
+  color: grey;
+}
+
+.user-stats-link {
+  text-transform: capitalize;
+}
