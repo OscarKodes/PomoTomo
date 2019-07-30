@@ -56,8 +56,10 @@
           </thead>
           <tbody>
             <% days.forEach(function(day){ %>
-              <td class="text-right"><%= day.date.slice(0, -4) %> </td>
-              <td class="text-left"> <%= day.pomos %></td>
+              <tr>
+                <td class="text-right"><%= day.date.slice(0, -4) %> </td>
+                <td class="text-left"> <%= day.pomos %></td>
+              </tr>
             <% }); %>
           </tbody>
       </table>
