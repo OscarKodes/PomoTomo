@@ -42,42 +42,32 @@ router.put("/:id", isLoggedIn, function(req, res){
   today = today.toDateString();
 
   // search to see if current user has a record for today
-  User.findOne(
-    {
-      "_id": req.params.id,
-      "days.date": today
-    }, function(err, userWithToday){
+  User.findById(req.params.id, function(err, foundUser){
+      let userRecentDay = foundUser.days[0];
       if (err) {
         console.log(err);
         res.redirect("back");
-      } else if (!userWithToday) {
+      } else if (!userRecentDay || userRecentDay.date !== today) {
         // if the current user does not have a record for today
-        // we must make one, by looking for the current user
-        User.findById(req.params.id, function(err, foundUser){
-          if (err) {
-            console.log(err);
-            res.redirect("/front");
-          } else {
-            let newDay = {
-              date: today,
-              pomos: 1
-            }
-            foundUser.days.push(newDay);
-            foundUser.alarmSound = req.body.alarmSoundInput;
-            foundUser.pomoUpSound = req.body.pomoUpSoundInput;
-            foundUser.save();
-            console.log(foundUser);
-            res.redirect("/front/b");
+        // we must make one
+          let newDay = {
+            date: today,
+            pomos: 1
           }
-        });
+          foundUser.days.unshift(newDay);
+          foundUser.alarmSound = req.body.alarmSoundInput;
+          foundUser.pomoUpSound = req.body.pomoUpSoundInput;
+          foundUser.save();
+          console.log(foundUser);
+          res.redirect("/front/b");
       } else {
         // if current user found with current day, just update the pomo
-        let currDay = userWithToday.days[0];
+        let currDay = foundUser.days[0];
         currDay.pomos++;
-        userWithToday.alarmSound = req.body.alarmSoundInput;
-        userWithToday.pomoUpSound = req.body.pomoUpSoundInput;
-        userWithToday.save();
-        console.log(userWithToday);
+        foundUser.alarmSound = req.body.alarmSoundInput;
+        foundUser.pomoUpSound = req.body.pomoUpSoundInput;
+        foundUser.save();
+        console.log(foundUser);
         res.redirect("/front/b");
       }
   });
