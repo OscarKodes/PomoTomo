@@ -3,6 +3,7 @@
 let startBtn = document.querySelector(".start-btn");
 let pauseBtn = document.querySelector(".pause-btn");
 let breakBtn = document.querySelector(".break-btn");
+let longBreakBtn = document.querySelector(".long-break-btn");
 let skipBreakBtn = document.querySelector(".skip-break-btn");
 let minDisplay = document.querySelector(".min");
 let secDisplay = document.querySelector(".sec");
@@ -98,6 +99,17 @@ function setUpListeners(){
 
   breakBtn.addEventListener("click", function(){
     breakBtn.classList.add("invisible");
+    longBreakBtn.classList.add("invisible");
+    breakOn = true;
+    pomoUp();
+    countdownOn();
+  });
+
+  longBreakBtn.addEventListener("click", function(){
+    breakBtn.classList.add("invisible");
+    longBreakBtn.classList.add("invisible");
+    min = 15;
+    minDisplay.innerText = min;
     breakOn = true;
     pomoUp();
     countdownOn();
@@ -167,6 +179,9 @@ function breakRoundSetup(){
   sec = 0;
   minDisplay.innerText = min;
   secDisplay.innerText = "00";
+  if ((pomosDone + 1) % 4 === 0) {
+    longBreakBtn.classList.remove("invisible");
+  }
   breakBtn.classList.remove("invisible");
   skipBreakBtn.classList.remove("invisible");
   pauseBtn.classList.add("invisible");
@@ -179,6 +194,7 @@ function pomoRoundSetup(){
   secDisplay.innerText = "00";
   startBtn.classList.remove("invisible");
   breakBtn.classList.add("invisible");
+  longBreakBtn.classList.add("invisible");
   skipBreakBtn.classList.add("invisible");
 }
 

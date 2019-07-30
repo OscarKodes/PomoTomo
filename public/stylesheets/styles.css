@@ -9,8 +9,8 @@
 .pomo-up {
   color: darkgreen;
   border: 1px solid green;
-  border-radius: 3px;
-  padding: 2px;
+  border-radius: 100%;
+  padding: 4px;
 }
 
 .all-time-table {
