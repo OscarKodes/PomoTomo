@@ -2,6 +2,7 @@
 /// DECLARE SELECTORS =======================
 let startBtn = document.querySelector(".start-btn");
 let pauseBtn = document.querySelector(".pause-btn");
+let cancelBtn = document.querySelector(".cancel-btn");
 let breakBtn = document.querySelector(".break-btn");
 let longBreakBtn = document.querySelector(".long-break-btn");
 let skipBreakBtn = document.querySelector(".skip-break-btn");
@@ -86,6 +87,7 @@ function setUpListeners(){
   startBtn.addEventListener("click", function(){
     startBtn.classList.add("invisible");
     pauseBtn.classList.remove("invisible");
+    cancelBtn.classList.remove("invisible");
     pomoOn = true;
     countdownOn();
   });
@@ -95,6 +97,15 @@ function setUpListeners(){
     pauseBtn.classList.add("invisible");
     pomoOn = false;
     clearTimeout(countdown);
+  });
+
+  cancelBtn.addEventListener("click", function(){
+    startBtn.classList.remove("invisible");
+    pauseBtn.classList.add("invisible");
+    cancelBtn.classList.add("invisible");
+    pomoOn = false;
+    clearTimeout(countdown);
+    pomoRoundSetup();
   });
 
   breakBtn.addEventListener("click", function(){
@@ -188,6 +199,7 @@ function breakRoundSetup(){
   breakBtn.classList.remove("invisible");
   skipBreakBtn.classList.remove("invisible");
   pauseBtn.classList.add("invisible");
+  cancelBtn.classList.add("invisible");
 }
 
 function pomoRoundSetup(){
