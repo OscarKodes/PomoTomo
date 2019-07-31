@@ -70,12 +70,23 @@ user's pomo info to the backend -->
   <!-- 15 min break button -->
   <div class="text-center mb-3">
     <button class="long-break-btn invisible btn btn-primary btn-lg" type="button" name="button">
-      <i class="far fa-star fa-lg mr-1"></i> Take 15 Min Break </button>
+      <i class="far fa-star fa-lg mr-1"></i>
+      <% if (currentUser) { %>
+        Take <%= currentUser.longBreakMin %> Min Break
+      <% } else { %>
+        Take 15 Min Break
+      <% } %>
+       </button>
   </div>
 
   <!-- Take break button -->
   <button class="break-btn invisible btn btn-primary btn-lg" type="button" name="button">
-    Take 5 Min Break</button>
+    <% if (currentUser) { %>
+      Take <%= currentUser.breakMin %> Min Break
+    <% } else { %>
+      Take 5 Min Break
+    <% } %>
+    </button>
 
   <!-- Skip break button -->
   <div class="my-3">
