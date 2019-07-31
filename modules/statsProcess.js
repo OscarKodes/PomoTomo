@@ -20,9 +20,9 @@ function statsProcess(days) {
     statObj.allTotal += day.pomos;
   });
 
-  statObj.fiveAverage = statObj.fiveTotal / 5;
-  statObj.tenAverage = statObj.tenTotal / 10;
-  statObj.allAverage = statObj.allTotal / days.length;
+  statObj.fiveAverage = (statObj.fiveTotal / 5).toFixed(2);
+  statObj.tenAverage = (statObj.tenTotal / 10).toFixed(2);
+  statObj.allAverage = (statObj.allTotal / days.length).toFixed(2);
 
   return statObj;
 }
