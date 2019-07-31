@@ -7,17 +7,17 @@ const User = require("../models/user");
 const statsProcess = require("../modules/statsProcess")
 
 
-// INDEX ROUTE
+// INDEX ROUTE================================
 // No need.
 
-// NEW ROUTE
+// NEW ROUTE==================================
 // Register routes take care of this.
 
-// CREATE ROUTE
+// CREATE ROUTE===============================
 // Register routes take care of this.
 
-// SHOW ROUTE
-// for user stats
+// SHOW ROUTE=================================
+// User's Stats Page
 router.get("/:id", isLoggedIn, function(req, res){
 
   User.findById(req.params.id, function(err, foundUser){
@@ -31,11 +31,19 @@ router.get("/:id", isLoggedIn, function(req, res){
   });
 });
 
-// EDIT ROUTE
-// settings page
+// EDIT ROUTE============================================
+// Custom Time Settings page
+router.get("/:id/edit", isLoggedIn, function(req, res){
+  res.render("custom-time");
+});
 
-// UPDATE ROUTE
-// for user's pomos, and settings
+// UPDATE ROUTES========================================
+// Update route for User's submitted custom time settings
+router.put("/:id/time", isLoggedIn, function(req, res){
+  res.send("PUT ROUTE SUCCESS");
+});
+
+// Update route to record user's pomos and sound options
 router.put("/:id", isLoggedIn, function(req, res){
 
   let today = new Date();

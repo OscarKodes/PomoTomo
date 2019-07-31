@@ -72,3 +72,14 @@ a.pause-btn.fas.fa-pause-circle {
 .pomo-date {
   font-family: monospace;
 }
+
+/* TIME SETTINGS PAGE ======================== */
+.time-card {
+  width: 30%;
+  min-width: 25rem;
+}
+
+.form-control-lg {
+  width: 4.8rem;
+  text-align: center;
+}
