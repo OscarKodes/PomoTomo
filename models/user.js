@@ -21,6 +21,18 @@ const userSchema = new mongoose.Schema({
   pomoUpSound: {
     type: Number,
     default: 0
+  },
+  pomoMin: {
+    type: Number,
+    default: 25
+  },
+  breakMin: {
+    type: Number,
+    default: 5
+  },
+  longBreakMin: {
+    type: Number,
+    default: 15
   }
 });
 
