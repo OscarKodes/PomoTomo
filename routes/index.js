@@ -17,8 +17,8 @@ router.get("/front/b", function(req, res){
   res.render("front", {breakSetup: "ON"});
 });
 
-router.get("/secrets", isLoggedIn, function(req, res){
-  res.render("secrets");
+router.get("/about", function(req, res){
+  res.render("about");
 });
 
 // show register form
