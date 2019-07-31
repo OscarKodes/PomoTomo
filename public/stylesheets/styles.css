@@ -4,6 +4,24 @@
   text-transform: capitalize;
 }
 
+#register-form {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.register-card {
+  position: absolute;
+  width: 25rem;
+  left: 50%;
+  top: 50vh;
+  margin-left: -12.5rem;
+  margin-top: -12.5rem;
+}
+
 /* FRONT PAGE CLASSES ================================ */
 .timer-container {
   width: 30%;
@@ -79,7 +97,7 @@ a.pause-btn.fas.fa-pause-circle {
   min-width: 25rem;
 }
 
-.form-control-lg {
+.time-card .form-control-lg {
   width: 4.8rem;
   text-align: center;
 }

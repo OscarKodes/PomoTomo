@@ -41,6 +41,9 @@
           <li class="nav-item ml-auto">
             <a class="nav-link" href="/register">Register</a>
           </li>
+          <li>
+            <a id="register-btn" class="nav-link">registaa</a>
+          </li>
           <li class="nav-item ml-auto">
             <a class="nav-link" href="/login">Login</a>
           </li>
@@ -64,7 +67,31 @@
           </li>
         <% } %>
       </ul>
+      </div>
+
+      <div id="register-form" class="invisible">
+        <div class="card register-card p-4">
+          <h1 class="display-4 text-center">Register</h1>
+
+          <a class="btn btn-lg btn-block btn-social btn-google mt-3" href="/auth/google" role="button">
+            <i class="fab fa-google"></i>
+            Google Sign Up
+          </a>
+
+          <a class="btn btn-lg btn-block btn-social btn-facebook mt-2 mb-3" href="/auth/google" role="button">
+            <i class="fab fa-facebook"></i>
+            Facebook Sign Up
+          </a>
+
+          <form class="" action="/register" method="post">
+            <input class="form-control form-control-lg mb-2" type="email" name="username" placeholder="Email">
+            <input class="form-control form-control-lg mb-4" type="password" name="password" placeholder="Password">
+            <div class="text-center">
+              <button class="btn btn-lg btn-info w-100" type="submit" name="button">Sign Up</button>
+            </div>
+          </form>
 
 
+        </div>
       </div>
     </nav>
