@@ -17,9 +17,12 @@
   position: absolute;
   width: 25rem;
   left: 50%;
-  top: 50vh;
   margin-left: -12.5rem;
-  margin-top: -12.5rem;
+  margin-top: 14rem;
+}
+
+.register-card .fa-window-close {
+  color: grey;
 }
 
 /* FRONT PAGE CLASSES ================================ */
