@@ -40,7 +40,19 @@ router.get("/:id/edit", isLoggedIn, function(req, res){
 // UPDATE ROUTES========================================
 // Update route for User's submitted custom time settings
 router.put("/:id/time", isLoggedIn, function(req, res){
-  res.send("PUT ROUTE SUCCESS");
+
+  User.findById(req.params.id, function(err, foundUser){
+    if (err) {
+      console.log(err);
+      res.redirect("back");
+    } else {
+      foundUser.pomoMin = req.body.pomoMin;
+      foundUser.breakMin = req.body.breakMin;
+      foundUser.longBreakMin = req.body.longBreakMin;
+      foundUser.save();
+      res.redirect("/front");
+    }
+  });
 });
 
 // Update route to record user's pomos and sound options
