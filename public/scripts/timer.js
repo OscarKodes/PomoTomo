@@ -13,7 +13,7 @@ let pomosDisplay = document.querySelector(".pomos-done");
 let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
 let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
 
-// input selectors to send info to the backend
+// input selectors to communicate data with backend
 let userLoggedIn = document.querySelector("#userLoggedIn");
 let alarmSoundInput = document.querySelector("#alarmSoundInput");
 let pomoUpSoundInput = document.querySelector("#pomoUpSoundInput");
@@ -23,6 +23,9 @@ let alarmDisplay = document.querySelector("#alarmDisplay");
 let pomoUpDisplay = document.querySelector("#pomoUpDisplay");
 let testAlarmBtn = document.querySelector("#test-alarm-btn");
 let testPomoUpBtn = document.querySelector("#test-pomoUp-btn");
+let userPomoMin = document.querySelector("#user-pomo-min");
+let userBreakMin = document.querySelector("#user-break-min");
+let userLongBreakMin = document.querySelector("#user-long-break-min");
 
 /// DECLARE VARIABLES ======================
 let breakOn = false;
@@ -119,7 +122,12 @@ function setUpListeners(){
   longBreakBtn.addEventListener("click", function(){
     breakBtn.classList.add("invisible");
     longBreakBtn.classList.add("invisible");
-    min = 15;
+    // check if user logged in, replace min with user's choice
+    if (userLoggedIn) {
+      min = Number(userLongBreakMin.value);
+    } else {
+      min = 15;
+    }
     minDisplay.innerText = min;
     breakOn = true;
     pomoUp();
@@ -186,7 +194,12 @@ function setUpSoundPickListeners(){
 
 // SETUP PomoROUND AND BREAK FUNCTIONS -------------------------------
 function breakRoundSetup(){
-  min = 5;
+  // check if user logged in, replace min with user's choice
+  if (userLoggedIn) {
+    min = Number(userBreakMin.value);
+  } else {
+    min = 5;
+  }
   sec = 0;
   minDisplay.innerText = min;
   secDisplay.innerText = "00";
@@ -203,7 +216,12 @@ function breakRoundSetup(){
 }
 
 function pomoRoundSetup(){
-  min = 25;
+  // check if user logged in, replace min with user's choice
+  if (userLoggedIn) {
+    min = Number(userPomoMin.value);
+  } else {
+    min = 25;
+  }
   sec = 0;
   minDisplay.innerText = min;
   secDisplay.innerText = "00";

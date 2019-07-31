@@ -12,9 +12,19 @@ user's pomo info to the backend -->
   </div>
 <% } %>
 
-<!-- Another invisible form, to show if we should show the break screen-->
-<input id="breakSetup" class="invisible" value="<%= breakSetup %>">
+<!-- Invisible form to transfer data from the back end-->
+<div class="invisible">
+  <input id="breakSetup" value="<%= breakSetup %>">
+  <!-- check if user logged in -->
+  <% if (currentUser) { %>
+    <input id="user-pomo-min" value="<%= currentUser.pomoMin %>">
+    <input id="user-break-min" value="<%= currentUser.breakMin %>">
+    <input id="user-long-break-min" value="<%= currentUser.longBreakMin %>">
+  <% } %>
+</div>
 
+
+<!-- END OF INVISIBLE FORMS - PAGE's ACTUAL "Body" BELOW ========= -->
 
 <!-- Main Timer Panel -->
 <div class="container text-center border rounded pt-4 pb-2 mt-5 timer-container">
