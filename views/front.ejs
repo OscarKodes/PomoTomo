@@ -27,10 +27,11 @@ user's pomo info to the backend -->
 <!-- END OF INVISIBLE FORMS - PAGE's ACTUAL "Body" BELOW ========= -->
 
 <!-- Main Timer Panel -->
-<div class="container text-center border rounded pt-4 pb-2 mt-5 timer-container">
+<div class="text-center border rounded pb-2 mt-5 mx-auto timer-container">
+
 
   <!-- Pomos Done Display -->
-  <p class="mb-3 pomos-done-text">Pomos Done:
+  <h3 class="card-header bg-dark text-light text-center">Pomos Done:
     <span class="pomos-done">
       <% let today = new Date(); %>
       <% today = today.toDateString(); %>
@@ -44,10 +45,10 @@ user's pomo info to the backend -->
         0
       <% } %>
     </span>
-  </p>
+  </h3>
 
   <!-- Time Display -->
-  <h1 class="mb-4 display-1">
+  <h1 class="my-5 display-1">
     <span class="min"></span>:
     <span class="sec"></span>
   </h1>
@@ -114,11 +115,6 @@ user's pomo info to the backend -->
   </a>
 </div>
 
-<!-- Sound Displays -->
-<div class="text-center mt-4">
-
-
-</div>
 
 <!-- Sound Options -->
 <div class="collapse" id="collapse">
@@ -165,7 +161,7 @@ user's pomo info to the backend -->
         <p class="text-center">Current Sound: <span id="alarmDisplay"></span></p>
 
         <div class="text-center mb-3">
-          <button id="test-alarm-btn" class="btn btn-dark btn-lg" type="button" name="button">
+          <button id="test-alarm-btn" class="btn btn-secondary" type="button" name="button">
             <i class="fas fa-music mr-1"></i> Test Sound
           </button>
         </div>
@@ -205,7 +201,7 @@ user's pomo info to the backend -->
       <p class="text-center mt-auto">Current Sound: <span id="pomoUpDisplay"></span></p>
 
       <div class="text-center mb-3">
-        <button id="test-pomoUp-btn" class="btn btn-dark btn-lg" type="button" name="button">
+        <button id="test-pomoUp-btn" class="btn btn-secondary" type="button" name="button">
           <i class="fas fa-music mr-1"></i> Test Sound
         </button>
       </div>
