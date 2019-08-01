@@ -14,11 +14,17 @@
         <label for="long-break-min">Long Breaks (min)</label>
         <input id="long-break-min" class="form-control form-control-lg mx-auto mb-4" type="number" name="longBreakMin" value=<%= currentUser.longBreakMin %> min="1" required>
 
+        <button id="reset-btn" class="btn btn-sm py-0 my-4 btn-outline-dark" type="button" name="button">Restore Defaults</button>
+
         <div class="text-center">
-          <button class="btn btn-primary my-3 btn-lg" type="submit" name="button">Submit</button>
+          <button class="btn btn-primary my-3 btn-lg w-100" type="submit" name="button">Save Settings</button>
         </div>
       </form>
     </div>
+
+
+<!-- Script for Restore Defaults -->
+<script src="/scripts/customTimeBtn.js" charset="utf-8"></script>
 
 
 <%- include partials/footer %>
