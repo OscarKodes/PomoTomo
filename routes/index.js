@@ -21,10 +21,8 @@ router.get("/about", function(req, res){
   res.render("about");
 });
 
-// show register form
-router.get("/register", function(req, res){
-  res.render("register");
-});
+// Register Get route is not needed
+// The front page has a Register popup form
 
 // handle user registration
 router.post("/register", function(req, res){
@@ -44,10 +42,8 @@ router.post("/register", function(req, res){
   });
 });
 
-// show login form
-router.get("/login", function(req, res){
-  res.render("login");
-});
+// Login Get route is not needed
+// The front page has a Login popup form
 
 // handle login
 router.post("/login", passport.authenticate("local",
