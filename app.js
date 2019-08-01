@@ -6,12 +6,13 @@ const express = require("express"),
       ejs     = require("ejs"),
       bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
-      methodOverride = require("method-override");
+      methodOverride = require("method-override"),
       passport = require("passport"),
       LocalStrategy = require("passport-local"),
       User = require("./models/user"),
       session = require("express-session"),
-      GoogleStrategy = require("passport-google-oauth20").Strategy;
+      GoogleStrategy = require("passport-google-oauth20").Strategy,
+      FacebookStrategy = require("passport-facebook").Strategy;
 
 // REQUIRE ROUTE MODULE FILES
 const authRoutes = require("./routes/auth");
