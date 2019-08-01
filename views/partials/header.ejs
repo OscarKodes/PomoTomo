@@ -42,7 +42,7 @@
             <a id="register-btn" class="nav-link">Register</a>
           </li>
           <li class="nav-item ml-auto">
-            <a class="nav-link" href="/login">Login</a>
+            <a id="login-btn" class="nav-link">Login</a>
           </li>
         <% } else { %>
           <li class="nav-item ml-auto">
@@ -68,12 +68,13 @@
 
     </nav>
 
-
+    <!-- Invisible Register Form Card PopUp -->
     <div id="register-form" class="invisible">
-      <div class="card register-card p-4">
+      <div class="card pop-up-card p-4">
         <i class="fas fa-window-close fa-lg ml-auto"></i>
         <h1 class="display-4 text-center">Register</h1>
 
+        <!-- OAuth -->
         <a class="btn btn-lg btn-block btn-social btn-google mt-3" href="/auth/google" role="button">
           <i class="fab fa-google"></i>
           Google Sign Up
@@ -84,6 +85,7 @@
           Facebook Sign Up
         </a>
 
+        <!-- Local Auth -->
         <form class="" action="/register" method="post">
           <input class="form-control form-control-lg mb-2" type="text" name="username" placeholder="Enter a Username" required>
           <input class="form-control form-control-lg mb-2" type="password" name="password" placeholder="Enter a Password" minlength="8" required>
@@ -92,6 +94,34 @@
           </div>
         </form>
 
+      </div>
+    </div>
+
+    <!-- Invisible Login Form Card PopUp -->
+    <div id="login-form" class="invisible">
+      <div class="card pop-up-card p-4">
+        <i class="fas fa-window-close fa-lg ml-auto"></i>
+        <h1 class="display-4 text-center">Login</h1>
+
+        <!-- OAuth -->
+        <a class="btn btn-lg btn-block btn-social btn-google mt-3" href="/auth/google" role="button">
+          <i class="fab fa-google"></i>
+          Google Sign In
+        </a>
+
+        <a class="btn btn-lg btn-block btn-social btn-facebook mt-2 mb-3" href="/auth/google" role="button">
+          <i class="fab fa-facebook"></i>
+          Facebook Sign In
+        </a>
+
+        <!-- Local Auth -->
+        <form class="" action="/login" method="post">
+          <input class="form-control form-control-lg mb-2" type="text" name="username" placeholder="Username" required>
+          <input class="form-control form-control-lg mb-2" type="password" name="password" placeholder="Password" required>
+          <div class="text-center">
+            <button class="btn btn-lg btn-info w-100" type="submit" name="button">Sign In</button>
+          </div>
+        </form>
 
       </div>
     </div>
