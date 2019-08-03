@@ -6,10 +6,12 @@ let closeBtn = document.querySelectorAll(".fa-window-close");
 
 registerBtn.addEventListener("click", function(){
   registerForm.classList.remove("invisible");
+  loginForm.classList.add("invisible");
 });
 
 loginBtn.addEventListener("click", function(){
   loginForm.classList.remove("invisible");
+  registerForm.classList.add("invisible");
 });
 
 // the register form appears above the login form in the ejs file

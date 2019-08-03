@@ -1,4 +1,62 @@
-/* HEADER NAVBAR CLASSES */
+/* Site Wide */
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+/* MASTER CONTAINER */
+.master-container {
+  overflow: hidden;
+  background-color: transparent;
+}
+
+@media only screen and (min-width: 1080px) {
+  .master-container {
+    margin: 0 auto;
+    width: 1080px;
+    height: 100vh;
+  }
+
+  .fixed-top {
+    width: 1080px;
+  }
+
+  .fixed-bottom {
+    margin: 0 auto;
+    width: 1080px;
+  }
+}
+
+.sub-master-container {
+  overflow: scroll;
+  height: 90vh;
+}
+
+
+/* HEADER NAVBAR CLASSES =======================*/
+.navbar-brand {
+  font-family: 'Crimson Pro', serif;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.fixed-top .nav-link, .fixed-bottom .nav-link {
+  font-family: 'Crimson Pro', serif;
+  font-size: 2rem;
+}
+
+.fixed-top {
+  position: relative;
+  z-index: 1;
+}
+
+/* FOOTER NAVBAR CLASSES =========================*/
+
 .user-stats-link {
   text-transform: capitalize;
 }
@@ -9,8 +67,8 @@
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 2;
+  background-color: rgba(0,0,0,0.85);
+  z-index: 3;
 }
 
 .pop-up-card {
@@ -18,26 +76,29 @@
   width: 25rem;
   left: 50%;
   margin-left: -12.5rem;
-  margin-top: 14rem;
+  margin-top: 15rem;
 }
 
 .register-card .fa-window-close {
   color: grey;
 }
 
-.navbar-color {
-  background: darkolivegreen;
-}
-
 /* FRONT PAGE CLASSES ================================ */
 .timer-container {
-  width: 30%;
-  min-width: 25rem;
+  margin-top: 0;
+  width: 100%;
 }
 
 .pomos-done-text {
-  font-size: 1.25rem;
+  font-size: 2rem;
+  color: grey;
   text-transform: full-width;
+  font-weight: lighter;
+}
+
+.time-display {
+  font-size: 9rem;
+  margin: 2.8rem 0 3rem 0;
 }
 
 .invisible {
@@ -45,7 +106,7 @@
 }
 
 a.start-btn.fa.fa-play-circle {
-  color: green;
+  color: darkgreen;
 }
 
 a.pause-btn.fas.fa-pause-circle {
@@ -53,8 +114,9 @@ a.pause-btn.fas.fa-pause-circle {
 }
 
 .pomo-up {
-  border: 2px solid white;
-  background-color: green;
+  color: darkgreen;
+  border: 2px solid darkgreen;
+  background-color: white;
   border-radius: 100%;
   padding: 2px 6px;
 }
@@ -64,13 +126,10 @@ a.pause-btn.fas.fa-pause-circle {
   color: grey;
 }
 
-.sound-card {
-  width: 25%;
-  min-width: 17rem;
-}
-
 
 /* STATS PAGE CLASSES =============================== */
+
+
 .all-time-table {
   width: 50%;
 }
@@ -99,7 +158,11 @@ a.pause-btn.fas.fa-pause-circle {
 }
 
 /* TIME SETTINGS PAGE ======================== */
-.time-card {
+div h3 {
+  font-family: 'Crimson Pro', serif;
+}
+
+.card-size {
   width: 30%;
   min-width: 25rem;
 }
@@ -115,10 +178,16 @@ a.pause-btn.fas.fa-pause-circle {
   width: 35%;
   min-width: 35rem;
   max-width: 45rem;
+  line-height: 1.8;
+}
+
+.about-card p, .about-card li {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.25rem;
 }
 
 .question {
   font-size: 2.1rem;
-  margin-top: 1.2rem;
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
 }

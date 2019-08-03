@@ -49,7 +49,7 @@ router.post("/register", function(req, res){
 router.post("/login", passport.authenticate("local",
   {
     successRedirect: "/front",
-    failureRedirect: "/login"
+    failureRedirect: "/front"
   }), function(req, res){
 });
 
@@ -70,7 +70,7 @@ function isLoggedIn(req, res, next){
   if (req.isAuthenticated()){
     return next();
   } else {
-    res.redirect("/login");
+    res.redirect("/front");
   }
 }
 

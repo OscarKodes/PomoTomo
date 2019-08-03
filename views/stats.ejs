@@ -1,6 +1,7 @@
 <%- include partials/header %>
 
-<h1 class="display-4 text-center my-5">My PomoTomo Stats</h1>
+<h1 class="display-4 text-center mb-5">My Stats</h1>
+
 
 <!-- Tabs -->
 <nav>
@@ -28,8 +29,7 @@
   <div class="tab-pane fade show active" id="nav-home"
     role="tabpanel" aria-labelledby="nav-home-tab">
 
-    <div class="text-center mt-5 mb-4">
-      <h3 class="mb-4">Recent 5 Sessions</h3>
+    <div class="text-center mt-4 mb-4">
       <p>Five day average: <%= stats.fiveAverage %></p>
       <p>Five day total: <%= stats.fiveTotal %></p>
     </div>
@@ -62,9 +62,12 @@
       <% } %>
     </div>
     <% if (blankSpots) { %>
-      <p class="text-center mt-4">
-        There are blank spots in the graph
+      <p class="text-center mt-4 text-secondary">
+        There are blanks in the graph
         because more days need to be recorded.</p>
+    <% } else { %>
+      <p class="text-center mt-4 text-secondary">
+        Based off of the five most recent days PomoTomo was used.</p>
     <% } %>
 
   </div>
@@ -72,8 +75,7 @@
   <!-- TEN DAY TAB CONTENTS -->
   <div class="tab-pane fade" id="nav-profile" role="tabpanel"
     aria-labelledby="nav-profile-tab">
-    <div class="text-center mt-5 mb-4">
-      <h3 class="mb-4">Recent 10 Sessions</h3>
+    <div class="text-center mt-4 mb-4">
       <p>Ten day average: <%= stats.tenAverage %></p>
       <p>Ten day total: <%= stats.tenTotal %></p>
     </div>
@@ -107,9 +109,12 @@
       <% } %>
     </div>
     <% if (blankSpots) { %>
-      <p class="text-center mt-4">
-        There are blank spots in the graph
+      <p class="text-center mt-4 text-secondary">
+        There are blanks in the graph
         because more days need to be recorded.</p>
+    <% } else { %>
+      <p class="text-center mt-4 text-secondary">
+        Based off of the five most recent days PomoTomo was used.</p>
     <% } %>
 
   </div>
@@ -118,8 +123,7 @@
   <div class="tab-pane fade" id="nav-contact" role="tabpanel"
     aria-labelledby="nav-contact-tab">
 
-    <div class="text-center mt-5 mb-4">
-      <h3 class="mb-4">All Sessions</h3>
+    <div class="text-center mt-4 mb-4">
       <p>All time average: <%= stats.allAverage %> pomos per visted day</p>
       <p>All time total: <%= stats.allTotal %> pomos</p>
       <p>Total days visited: <%= days.length %> days</p>

@@ -34,7 +34,7 @@ router.get("/:id", isLoggedIn, function(req, res){
 // EDIT ROUTE============================================
 // Custom Time Settings page
 router.get("/:id/edit", isLoggedIn, function(req, res){
-  res.render("custom-time");
+  res.render("settings");
 });
 
 // UPDATE ROUTES========================================
@@ -55,7 +55,24 @@ router.put("/:id/time", isLoggedIn, function(req, res){
   });
 });
 
-// Update route to record user's pomos and sound options
+// Update route for User's submitted custom sound settings
+router.put("/:id/sound", function(req, res){
+
+  User.findById(req.params.id, function(err, foundUser){
+    if (err) {
+      console.log(err);
+      res.redirect("back");
+    } else {
+      foundUser.alarmSound = req.body.alarmSoundInput;
+      foundUser.pomoUpSound = req.body.pomoUpSoundInput;
+      foundUser.save();
+      console.log(foundUser);
+      res.redirect("/front");
+    }
+  });
+});
+
+// Update route to record user's pomos
 router.put("/:id", isLoggedIn, function(req, res){
 
   let today = new Date();
@@ -75,8 +92,6 @@ router.put("/:id", isLoggedIn, function(req, res){
             pomos: 1
           }
           foundUser.days.unshift(newDay);
-          foundUser.alarmSound = req.body.alarmSoundInput;
-          foundUser.pomoUpSound = req.body.pomoUpSoundInput;
           foundUser.save();
           console.log(foundUser);
           res.redirect("/front/b");
@@ -84,14 +99,13 @@ router.put("/:id", isLoggedIn, function(req, res){
         // if current user found with current day, just update the pomo
         let currDay = foundUser.days[0];
         currDay.pomos++;
-        foundUser.alarmSound = req.body.alarmSoundInput;
-        foundUser.pomoUpSound = req.body.pomoUpSoundInput;
         foundUser.save();
         console.log(foundUser);
         res.redirect("/front/b");
       }
   });
 });
+
 
 // DESTROY ROUTE
 // Maybe no need.
@@ -101,7 +115,7 @@ function isLoggedIn(req, res, next){
   if (req.isAuthenticated()){
     return next();
   } else {
-    res.redirect("/login");
+    res.redirect("/front");
   }
 }
 

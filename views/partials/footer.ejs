@@ -1,4 +1,125 @@
 
+<!-- Extra Spacing (needed due to Fixed Bottom navbar) -->
+<div class="my-5 pt-5">
+
+</div>
+
+<div class="fixed-bottom bg-dark text-light pt-2">
+  <div class="row text-center">
+
+    <% if (!currentUser) { %>
+      <a id="register-btn" class="col border-right nav-link text-light">
+        <h5>
+          <i class="fas fa-user-plus fa-lg mr-2"></i>Register
+        </h5>
+      </a>
+      <a class="col nav-link text-light" href="/front">
+        <h5>
+          <i class="fas fa-home fa-lg mr-2"></i>Home
+        </h5>
+      </a>
+      <a id="login-btn" class="col border-left nav-link text-light">
+        <h5>
+          <i class="fas fa-sign-in-alt fa-lg mr-2"></i> Login
+        </h5>
+      </a>
+
+    <% } else { %>
+      <a class="col border-right user-stats-link nav-link text-light" href="/user/<%= currentUser._id %>">
+          <h5>
+            <i class="fas fa-chart-bar fa-lg mr-2"></i>
+            <% if (currentUser.name) { %>
+              <%= currentUser.name %>'s Stats
+            <% } else { %>
+              <% let end = currentUser.username.indexOf("@"); %>
+              <% let name = currentUser.username.slice(0, end); %>
+              <%= name %>'s Stats
+            <% } %>
+          </h5>
+      </a>
+
+      <a class="col nav-link text-light" href="/front">
+        <h5>
+          <i class="fas fa-home fa-lg mr-2"></i>Home
+        </h5>
+      </a>
+
+      <a class="col border-left nav-link text-light" href="/user/<%= currentUser._id %>/edit">
+          <h5>
+            <i class="fas fa-cog fa-lg mr-2"></i> Settings
+          </h5>
+      </a>
+
+    <% } %>
+
+  </div>
+</div>
+
+<!-- Invisible Register Form Card PopUp -->
+<div id="register-form" class="invisible">
+  <div class="card pop-up-card p-4">
+    <i class="fas fa-window-close fa-2x ml-auto text-secondary"></i>
+    <h1 class="display-4 text-center">Register</h1>
+
+    <!-- OAuth -->
+    <a class="btn btn-lg btn-block btn-social btn-google mt-3" href="/auth/google" role="button">
+      <i class="fab fa-google"></i>
+      Google Sign Up
+    </a>
+
+    <a class="btn btn-lg btn-block btn-social btn-facebook mt-2 mb-3" href="/auth/facebook" role="button">
+      <i class="fab fa-facebook"></i>
+      Facebook Sign Up
+    </a>
+
+    <!-- Local Auth -->
+    <form class="" action="/register" method="post">
+      <input class="form-control form-control-lg mb-2" type="text" name="username" placeholder="Enter a Username" required>
+      <input class="form-control form-control-lg mb-2" type="password" name="password"
+        placeholder="Enter a Password" minlength="8" required>
+      <div class="text-center">
+        <button class="btn btn-lg btn-info w-100" type="submit" name="button">Sign Up</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!-- Invisible Login Form Card PopUp -->
+<div id="login-form" class="invisible">
+  <div class="card pop-up-card p-4">
+    <i class="fas fa-window-close fa-2x ml-auto text-secondary"></i>
+    <h1 class="display-4 text-center">Login</h1>
+
+    <!-- OAuth -->
+    <a class="btn btn-lg btn-block btn-social btn-google mt-3" href="/auth/google" role="button">
+      <i class="fab fa-google"></i>
+      Google Sign In
+    </a>
+
+    <a class="btn btn-lg btn-block btn-social btn-facebook mt-2 mb-3" href="/auth/facebook" role="button">
+      <i class="fab fa-facebook"></i>
+      Facebook Sign In
+    </a>
+
+    <!-- Local Auth -->
+    <form class="" action="/login" method="post">
+      <input class="form-control form-control-lg mb-2" type="text" name="username" placeholder="Username" required>
+      <input class="form-control form-control-lg mb-2" type="password" name="password" placeholder="Password" required>
+      <div class="text-center">
+        <button class="btn btn-lg btn-info w-100" type="submit" name="button">Sign In</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<!-- This extra div is to close the sub master container -->
+</div>
+
+<!-- This extra div close is the close the master-container from the header -->
+</div>
+
 <!-- Bootstrap Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

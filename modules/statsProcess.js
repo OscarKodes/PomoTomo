@@ -24,6 +24,10 @@ function statsProcess(days) {
   statObj.tenAverage = (statObj.tenTotal / 10).toFixed(2);
   statObj.allAverage = (statObj.allTotal / days.length).toFixed(2);
 
+  if (statObj.allAverage === NaN) {
+    statObj.allAverage = 0;
+  }
+  
   return statObj;
 }
 

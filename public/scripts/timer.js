@@ -10,8 +10,6 @@ let minDisplay = document.querySelector(".min");
 let secDisplay = document.querySelector(".sec");
 let title = document.querySelector("title");
 let pomosDisplay = document.querySelector(".pomos-done");
-let allAlarmRadios = document.querySelectorAll(".alarmSounds input");
-let allPomoUpRadios = document.querySelectorAll(".pomoUpSounds input");
 
 // input selectors to communicate data with backend
 let userLoggedIn = document.querySelector("#userLoggedIn");
@@ -19,8 +17,6 @@ let alarmSoundInput = document.querySelector("#alarmSoundInput");
 let pomoUpSoundInput = document.querySelector("#pomoUpSoundInput");
 let pomoUpFormSubmit = document.querySelector("#pomoUpFormSubmit");
 let breakSetup = document.querySelector("#breakSetup");
-let alarmDisplay = document.querySelector("#alarmDisplay");
-let pomoUpDisplay = document.querySelector("#pomoUpDisplay");
 let testAlarmBtn = document.querySelector("#test-alarm-btn");
 let testPomoUpBtn = document.querySelector("#test-pomoUp-btn");
 let userPomoMin = document.querySelector("#user-pomo-min");
@@ -28,10 +24,25 @@ let userBreakMin = document.querySelector("#user-break-min");
 let userLongBreakMin = document.querySelector("#user-long-break-min");
 
 /// DECLARE VARIABLES ======================
+let alarmSoundsArr = [
+  "Default",
+  "Drop",
+  "Frog",
+  "Holiday",
+  "Horse",
+  "Spring"
+];
+let pomoUpSoundsArr = [
+  "Default",
+  "Coin",
+  "LevelUp",
+  "Shiver"
+]
 let breakOn = false;
 let pomoOn = false;
 let alarmNum = 0;
 let pomoUpNum = 0;
+
 // pomosDisplay's inner text will show the amount a logged in user has already done on page load
 // if the user isn't logged in, it'll show 0 by defaut on page load
 // so we automatically want pomosDone to equal this amount
@@ -70,18 +81,22 @@ function timerInit() {
 
   // set up all listeners for buttons
   setUpListeners();
-  // set up all listeners for radio buttons
-  setUpSoundPickListeners();
+  // set up sounds
+  setUpSounds();
+}
 
-  // auto click on default sounds, so sounds are defined
-  // if user is logged in, we check what they're saved sound options are
+// SETUP SOUNDS -----------------------------------------------
+function setUpSounds() {
   if (userLoggedIn) {
-    alarmNum = alarmSoundInput.value;
-    pomoUpNum = pomoUpSoundInput.value;
+    chosenAlarm = alarmSoundsArr[alarmSoundInput.value];
+    chosenUpSound = pomoUpSoundsArr[pomoUpSoundInput.value];
+  } else {
+    chosenAlarm = "Default";
+    chosenUpSound = "Default";
   }
-  // whether a guest or a user, we auto click on their set sounds
-  allAlarmRadios[alarmNum].click();
-  allPomoUpRadios[pomoUpNum].click();
+
+  alarm = new Audio('/sounds/alarm' + chosenAlarm + '.ogg');
+  pomoUpSound = new Audio('/sounds/pomoUp' + chosenUpSound + '.ogg');
 }
 
 // SETUP Button Listeners --------------------------------
@@ -146,51 +161,6 @@ function setUpListeners(){
   });
 }
 
-function setUpSoundPickListeners(){
-  // add listeners to radio buttons for choosing an alarm sound
-  allAlarmRadios.forEach(function(radioBtn, index){
-    radioBtn.addEventListener("click", function(){
-      selectedAlarm = document.querySelector(".alarmSounds input:checked");
-      chosenAlarm = selectedAlarm.value;
-      alarm = new Audio('/sounds/alarm' + chosenAlarm + '.ogg');
-      // change what is displayed for user's chosen sounds
-      alarmNum = index;
-      displaySounds(alarmNum, pomoUpNum)
-      // make the invisible input on the front page retain the index of the sound
-      // this will allow us to save the user's selection when sending to the backend
-      // also, we have to make sure the user is logged in but seeing if the input exists
-      if (userLoggedIn) {
-        alarmSoundInput.value = index;
-      }
-    });
-  });
-
-  // add listeners to radio buttons for choosing a pomoUp sound
-  allPomoUpRadios.forEach(function(radioBtn, index){
-    radioBtn.addEventListener("click", function(){
-      selectedPomoUp = document.querySelector(".pomoUpSounds input:checked");
-      chosenUpSound = selectedPomoUp.value;
-      pomoUpSound = new Audio('/sounds/pomoUp' + chosenUpSound + '.ogg');
-      // change what is displayed for user's chosen sounds
-      pomoUpNum = index;
-      displaySounds(alarmNum, pomoUpNum)
-      // make the invisible input on the front page retain the index of the sound
-      // this will allow us to save the user's selection when sending to the backend
-      // also, we have to make sure the user is logged in but seeing if the input exists
-      if (userLoggedIn) {
-       pomoUpSoundInput.value = index;
-      }
-    });
-  });
-
-  // Setup Listeners for Test buttons
-  testAlarmBtn.addEventListener("click", function() {
-    alarm.play();
-  });
-  testPomoUpBtn.addEventListener("click", function(){
-    pomoUpSound.play();
-  });
-}
 
 // SETUP PomoROUND AND BREAK FUNCTIONS -------------------------------
 function breakRoundSetup(){
@@ -288,11 +258,6 @@ function pomoUp(){
 function updateBackEndPomo(){
   // if yes, this will send a put request to express
   pomoUpFormSubmit.click();
-}
-
-function displaySounds(alarmNum, pomoUpNum) {
-  alarmDisplay.innerText = allAlarmRadios[alarmNum].value;
-  pomoUpDisplay.innerText = allPomoUpRadios[pomoUpNum].value;
 }
 
 function updateTimeDisplays() {
