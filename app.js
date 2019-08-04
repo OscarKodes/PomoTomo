@@ -47,28 +47,30 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-
 // this is middleware function that'll run on every route
 app.use(function(req, res, next){
   res.locals.currentUser = req.user;
   next();
 });
 
-mongoose.connect("mongodb://localhost:27017/pomotomo",
-{
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-});
-
+// mongoose connection set up
+const url = process.env.DATABASEURL || "mongodb://localhost:27017/pomotomo";
+mongoose.connect(url,
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  }
+);
 
 // Tell app to use the routes and declare each route's prefix
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use(indexRoutes);
 
+// Set up PORT and app.listen
+const PORT = process.env.PORT || 3000;
 
-
-app.listen(3000, function(){
+app.listen(PORT, function(){
   console.log("Server is listening on port 3000");
 });
