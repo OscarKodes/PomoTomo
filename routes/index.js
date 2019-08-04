@@ -65,13 +65,4 @@ router.get("*", function(req, res){
 });
 
 
-// Middleware functions
-function isLoggedIn(req, res, next){
-  if (req.isAuthenticated()){
-    return next();
-  } else {
-    res.redirect("/front");
-  }
-}
-
 module.exports = router;

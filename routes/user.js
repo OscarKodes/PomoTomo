@@ -4,7 +4,8 @@ const router = express.Router();
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("../models/user");
-const statsProcess = require("../modules/statsProcess")
+const statsProcess = require("../modules/statsProcess");
+const middleware = require("../middleware");
 
 
 // INDEX ROUTE================================
@@ -18,7 +19,7 @@ const statsProcess = require("../modules/statsProcess")
 
 // SHOW ROUTE=================================
 // User's Stats Page
-router.get("/:id", isLoggedIn, function(req, res){
+router.get("/:id", middleware.isLoggedIn, function(req, res){
 
   User.findById(req.params.id, function(err, foundUser){
     if (err) {
@@ -33,13 +34,13 @@ router.get("/:id", isLoggedIn, function(req, res){
 
 // EDIT ROUTE============================================
 // Custom Time Settings page
-router.get("/:id/edit", isLoggedIn, function(req, res){
+router.get("/:id/edit", middleware.isLoggedIn, function(req, res){
   res.render("settings");
 });
 
 // UPDATE ROUTES========================================
 // Update route for User's submitted custom time settings
-router.put("/:id/time", isLoggedIn, function(req, res){
+router.put("/:id/time", middleware.isLoggedIn, function(req, res){
 
   User.findById(req.params.id, function(err, foundUser){
     if (err) {
@@ -73,7 +74,7 @@ router.put("/:id/sound", function(req, res){
 });
 
 // Update route to record user's pomos
-router.put("/:id", isLoggedIn, function(req, res){
+router.put("/:id", middleware.isLoggedIn, function(req, res){
 
   let today = new Date();
   today = today.toDateString();
@@ -110,14 +111,6 @@ router.put("/:id", isLoggedIn, function(req, res){
 // DESTROY ROUTE
 // Maybe no need.
 
-// Middleware functions
-function isLoggedIn(req, res, next){
-  if (req.isAuthenticated()){
-    return next();
-  } else {
-    res.redirect("/front");
-  }
-}
 
 
 module.exports = router;
