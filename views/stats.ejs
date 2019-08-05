@@ -1,6 +1,14 @@
 <%- include partials/header %>
 
-<h1 class="display-4 text-center mb-5">My Stats</h1>
+<h1 class="display-4 text-center mb-5">
+  <% let displayName; %>
+  <% if (currentUser.name) { %>
+    <% displayName = currentUser.name; %>
+  <% } else { %>
+    <% displayName = currentUser.username; %>
+  <% } %>
+  <%= displayName.slice(0, 9) %>'s Stats
+</h1>
 
 
 <!-- Tabs -->
