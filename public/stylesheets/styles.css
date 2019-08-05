@@ -2,8 +2,18 @@
 html {
   overflow: scroll;
   overflow-x: hidden;
-  font-size: 200%;
+  /* Font size for mobile from 0px to 1080px*/
+  font-size: 3vw;
 }
+
+@media only screen
+  /* Font size for medium displays from 1080px to 1400px*/
+  and (min-width: 1080px) {
+  html {
+    font-size: 1rem;
+  }
+}
+
 
 ::-webkit-scrollbar {
     width: 0px;  /* Remove scrollbar space */
@@ -12,15 +22,16 @@ html {
 
 /* MASTER CONTAINER */
 .master-container {
+  position: relative;
   overflow: hidden;
   background-color: transparent;
 }
 
 @media only screen and (min-width: 1080px) {
+
   .master-container {
     margin: 0 auto;
     width: 1080px;
-    height: 100vh;
   }
 
   .fixed-top {
