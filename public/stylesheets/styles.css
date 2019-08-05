@@ -91,6 +91,12 @@ html {
   margin-top: 15rem;
 }
 
+@media only screen and (min-width: 1080px) {
+  .pop-up-card {
+    position: fixed;
+  }
+}
+
 .register-card .fa-window-close {
   color: grey;
 }
